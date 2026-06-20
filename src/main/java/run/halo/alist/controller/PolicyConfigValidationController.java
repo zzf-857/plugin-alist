@@ -68,7 +68,7 @@ public class PolicyConfigValidationController {
                             );
                         }
                         // role = 2 means admin which permissions is 0.
-                        if (userInfo.getRole() != 2) {
+                        if (userInfo.getRole() == null || !userInfo.getRole().contains(2)) {
                             int perm = userInfo.getPermission();
                             // Permission "Make dir or upload": 0b1000 = 8
                             // Permission "Delete": 0b1000_0000 = 128

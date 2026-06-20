@@ -1,6 +1,8 @@
 package run.halo.alist.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +26,8 @@ public class AListGetCurrentUserInfoRes {
      */
     @JsonProperty("base_path")
     private String basePath;
-    private int role;
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    private List<Integer> role;
     private boolean disabled;
     private int permission;
     @JsonProperty("sso_id")
