@@ -210,8 +210,19 @@ public class AListAttachmentHandler implements AttachmentHandler {
                         .build()
                         .toString()
                     );
+                var lastSlashIndex = rawFilePath.lastIndexOf('/');
+                String dirPath = "/";
+                String filename = rawFilePath;
+                if (lastSlashIndex != -1) {
+                    dirPath = rawFilePath.substring(0, lastSlashIndex);
+                    if (dirPath.isEmpty()) {
+                        dirPath = "/";
+                    }
+                    filename = rawFilePath.substring(lastSlashIndex + 1);
+                }
                 var body = AListRemoveFileReq.builder()
-                    .names(List.of(rawFilePath))
+                    .dir(dirPath)
+                    .names(List.of(filename))
                     .build();
                 return getToken(properties)
                     .flatMap(token -> webClient.post().uri(deleteUri)
